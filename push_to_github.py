@@ -40,35 +40,8 @@ def run_git(args, check=True):
         print(f"Error: {e}")
         return False
 
-# Try to remove .git directory, but continue if it fails
-if os.path.exists(".git"):
-    try:
-        # Change permissions first
-        subprocess.run(["icacls", ".git", "/grant", "Everyone:(OI)(CI)F", "/T"], capture_output=True)
-        shutil.rmtree(".git", onerror=lambda func, path, exc: os.chmod(path, 0o777) or func(path))
-        print("Removed existing .git directory")
-    except Exception as e:
-        print(f"Could not remove .git: {e}")
-        print("Continuing with existing repository...")
-
-# Initialize new repository
-run_git(["init"])
-
-# Configure git user if not set
-run_git(["config", "user.email", "auditor@example.com"], check=False)
-run_git(["config", "user.name", "Auditor"], check=False)
-
-# Add all files
-run_git(["add", "."])
-
-# Commit
-run_git(["commit", "-m", "Initial commit: Intelligent Audit Tool with Mistral-7B integration"])
-
-# Remove existing remote if any
-run_git(["remote", "remove", "origin"], check=False)
-
-# Add remote
-run_git(["remote", "add", "origin", "https://github.com/guigehost/RabAi_Auditor.git"])
+# Rename branch from master to main
+run_git(["branch", "-M", "main"])
 
 # Force push to overwrite remote
 run_git(["push", "-u", "origin", "main", "--force"])

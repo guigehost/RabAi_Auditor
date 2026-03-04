@@ -1,0 +1,389 @@
+﻿python : INFO:     Started server process [22368]
+所在位置 行:1 字符: 1
++ python -c "
++ ~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (INFO:     Started server process [22368]:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+2026-03-04 10:51:45,066 - INFO - 收到上传请求，文件名: test_upload.csv
+2026-03-04 10:51:45,068 - INFO - 规则参数: {"\u501f\u8d37\u4e0d\u5e73": {"enabled": true}, "\u5927\u989d\u4ea4\u6613": {"enabled": true}}
+2026-03-04 10:51:45,070 - INFO - 文件大小: 541 字节
+2026-03-04 10:51:45,071 - INFO - 文件已保存到: uploads/test_upload.csv
+2026-03-04 10:51:45,071 - INFO - 规则配置解析成功: {'借贷不平': {'enabled': True}, '大额交易': {'enabled': True}}
+2026-03-04 10:51:45,071 - INFO - 开始处理审计数据: uploads/test_upload.csv
+2026-03-04 10:51:45,071 - INFO - 开始预处理文件: uploads/test_upload.csv
+2026-03-04 10:51:45,083 - INFO - 读取到 4 行数据
+2026-03-04 10:51:45,083 - INFO - 列名: ['年', '月', '日', '核算账簿名称', '凭证号', '分录号', '摘要', '科目编码', '科目名称', '辅助项', '币种', '借方本币', '贷方本币']
+2026-03-04 10:51:45,121 - INFO - 预处理完成，共 4 行
+2026-03-04 10:51:45,121 - INFO - 开始执行规则引擎，规则配置: {'借贷不平': {'enabled': True}, '大额交易': {'enabled': True}}
+2026-03-04 10:51:45,123 - INFO - 借贷不平规则检测到 0 条异常
+2026-03-04 10:51:45,128 - INFO - 整数金额规则检测到 0 条异常
+2026-03-04 10:51:45,130 - INFO - 节假日记账规则检测到 2 条异常
+2026-03-04 10:51:45,130 - INFO - 规则引擎执行完成
+2026-03-04 10:51:45,132 - INFO - 风险统计 - 高: 0, 中: 0, 低: 2
+2026-03-04 10:51:45,137 - INFO - 处理完成，返回结果
+INFO:     127.0.0.1:53735 - "POST /api/upload HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\uvicorn\protocols\http\h11_impl.py", line 408, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\uvicorn\middleware\proxy_headers.py", line 84, in __call__
+    return await self.app(scope, receive, send)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\fastapi\applications.py", line 1106, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\applications.py", line 122, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\middleware\errors.py", line 184, in __call__
+    raise exc
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\middleware\errors.py", line 162, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\middleware\cors.py", line 83, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\middleware\exceptions.py", line 79, in __call__
+    raise exc
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\middleware\exceptions.py", line 68, in __call__
+    await self.app(scope, receive, sender)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 20, in __call__
+    raise e
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 17, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\routing.py", line 718, in __call__
+    await route.handle(scope, receive, send)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\routing.py", line 66, in app
+    response = await func(request)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\fastapi\routing.py", line 303, in app
+    response = actual_response_class(content, **response_args)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\responses.py", line 196, in __init__
+    super().__init__(content, status_code, headers, media_type, background)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\responses.py", line 55, in __init__
+    self.body = self.render(content)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\responses.py", line 199, in render
+    return json.dumps(
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\json\__init__.py", line 238, in dumps
+    **kw).encode(obj)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\json\encoder.py", line 199, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\json\encoder.py", line 257, in iterencode
+    return _iterencode(o, 0)
+ValueError: Out of range float values are not JSON compliant
+2026-03-04 10:53:33,593 - INFO - 收到上传请求，文件名: test_upload.csv
+2026-03-04 10:53:33,593 - INFO - 规则参数: {"\u501f\u8d37\u4e0d\u5e73": {"enabled": true}, "\u5927\u989d\u4ea4\u6613": {"enabled": true}}
+2026-03-04 10:53:33,594 - INFO - 文件大小: 541 字节
+2026-03-04 10:53:33,595 - INFO - 文件已保存到: uploads/test_upload.csv
+2026-03-04 10:53:33,595 - INFO - 规则配置解析成功: {'借贷不平': {'enabled': True}, '大额交易': {'enabled': True}}
+2026-03-04 10:53:33,596 - INFO - 开始处理审计数据: uploads/test_upload.csv
+2026-03-04 10:53:33,596 - INFO - 开始预处理文件: uploads/test_upload.csv
+2026-03-04 10:53:33,602 - INFO - 读取到 4 行数据
+2026-03-04 10:53:33,602 - INFO - 列名: ['年', '月', '日', '核算账簿名称', '凭证号', '分录号', '摘要', '科目编码', '科目名称', '辅助项', '币种', '借方本币', '贷方本币']
+2026-03-04 10:53:33,619 - INFO - 预处理完成，共 4 行
+2026-03-04 10:53:33,619 - INFO - 开始执行规则引擎，规则配置: {'借贷不平': {'enabled': True}, '大额交易': {'enabled': True}}
+2026-03-04 10:53:33,619 - INFO - 借贷不平规则检测到 0 条异常
+2026-03-04 10:53:33,624 - INFO - 整数金额规则检测到 0 条异常
+2026-03-04 10:53:33,626 - INFO - 节假日记账规则检测到 2 条异常
+2026-03-04 10:53:33,626 - INFO - 规则引擎执行完成
+2026-03-04 10:53:33,631 - INFO - 风险统计 - 高: 0, 中: 0, 低: 2
+2026-03-04 10:53:33,636 - INFO - 处理完成，返回结果
+INFO:     127.0.0.1:53754 - "POST /api/upload HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\uvicorn\protocols\http\h11_impl.py", line 408, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\uvicorn\middleware\proxy_headers.py", line 84, in __call__
+    return await self.app(scope, receive, send)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\fastapi\applications.py", line 1106, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\applications.py", line 122, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\middleware\errors.py", line 184, in __call__
+    raise exc
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\middleware\errors.py", line 162, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\middleware\cors.py", line 83, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\middleware\exceptions.py", line 79, in __call__
+    raise exc
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\middleware\exceptions.py", line 68, in __call__
+    await self.app(scope, receive, sender)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 20, in __call__
+    raise e
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 17, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\routing.py", line 718, in __call__
+    await route.handle(scope, receive, send)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\routing.py", line 66, in app
+    response = await func(request)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\fastapi\routing.py", line 303, in app
+    response = actual_response_class(content, **response_args)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\responses.py", line 196, in __init__
+    super().__init__(content, status_code, headers, media_type, background)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\responses.py", line 55, in __init__
+    self.body = self.render(content)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\responses.py", line 199, in render
+    return json.dumps(
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\json\__init__.py", line 238, in dumps
+    **kw).encode(obj)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\json\encoder.py", line 199, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\json\encoder.py", line 257, in iterencode
+    return _iterencode(o, 0)
+ValueError: Out of range float values are not JSON compliant
+2026-03-04 10:54:19,935 - INFO - 收到上传请求，文件名: test_upload.csv
+2026-03-04 10:54:19,935 - INFO - 规则参数: {"\u501f\u8d37\u4e0d\u5e73": {"enabled": true}, "\u5927\u989d\u4ea4\u6613": {"enabled": true}}
+2026-03-04 10:54:19,935 - INFO - 文件大小: 541 字节
+2026-03-04 10:54:19,936 - INFO - 文件已保存到: uploads/test_upload.csv
+2026-03-04 10:54:19,936 - INFO - 规则配置解析成功: {'借贷不平': {'enabled': True}, '大额交易': {'enabled': True}}
+2026-03-04 10:54:19,936 - INFO - 开始处理审计数据: uploads/test_upload.csv
+2026-03-04 10:54:19,936 - INFO - 开始预处理文件: uploads/test_upload.csv
+2026-03-04 10:54:19,944 - INFO - 读取到 4 行数据
+2026-03-04 10:54:19,946 - INFO - 列名: ['年', '月', '日', '核算账簿名称', '凭证号', '分录号', '摘要', '科目编码', '科目名称', '辅助项', '币种', '借方本币', '贷方本币']
+2026-03-04 10:54:19,976 - INFO - 预处理完成，共 4 行
+2026-03-04 10:54:19,976 - INFO - 开始执行规则引擎，规则配置: {'借贷不平': {'enabled': True}, '大额交易': {'enabled': True}}
+2026-03-04 10:54:19,976 - INFO - 借贷不平规则检测到 0 条异常
+2026-03-04 10:54:19,982 - INFO - 整数金额规则检测到 0 条异常
+2026-03-04 10:54:19,984 - INFO - 节假日记账规则检测到 2 条异常
+2026-03-04 10:54:19,986 - INFO - 规则引擎执行完成
+2026-03-04 10:54:19,991 - INFO - 风险统计 - 高: 0, 中: 0, 低: 2
+2026-03-04 10:54:19,996 - INFO - 处理完成，返回结果
+INFO:     127.0.0.1:53762 - "POST /api/upload HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\uvicorn\protocols\http\h11_impl.py", line 408, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\uvicorn\middleware\proxy_headers.py", line 84, in __call__
+    return await self.app(scope, receive, send)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\fastapi\applications.py", line 1106, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\applications.py", line 122, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\middleware\errors.py", line 184, in __call__
+    raise exc
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\middleware\errors.py", line 162, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\middleware\cors.py", line 83, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\middleware\exceptions.py", line 79, in __call__
+    raise exc
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\middleware\exceptions.py", line 68, in __call__
+    await self.app(scope, receive, sender)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 20, in __call__
+    raise e
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 17, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\routing.py", line 718, in __call__
+    await route.handle(scope, receive, send)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\routing.py", line 66, in app
+    response = await func(request)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\fastapi\routing.py", line 303, in app
+    response = actual_response_class(content, **response_args)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\responses.py", line 196, in __init__
+    super().__init__(content, status_code, headers, media_type, background)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\responses.py", line 55, in __init__
+    self.body = self.render(content)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\responses.py", line 199, in render
+    return json.dumps(
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\json\__init__.py", line 238, in dumps
+    **kw).encode(obj)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\json\encoder.py", line 199, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\json\encoder.py", line 257, in iterencode
+    return _iterencode(o, 0)
+ValueError: Out of range float values are not JSON compliant
+INFO:     127.0.0.1:50296 - "GET /api/llm/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50296 - "GET /api/llm/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58673 - "GET /api/llm/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54581 - "GET /api/llm/health HTTP/1.1" 200 OK
+2026-03-04 12:59:28,990 - INFO - 收到上传请求，文件名: 数据源1.xlsx
+2026-03-04 12:59:28,990 - INFO - 规则参数: {"借贷不平":{"enabled":true},"凭证断号":{"enabled":true},"一借多贷异常":{"enabled":true},"摘要-科目匹配":{"enabled":true},"在建工程科目关联":{"enabled":true},"税费科目逻辑":{"en
+abled":true},"银行存款科目":{"enabled":true},"大额交易":{"enabled":true},"整数金额":{"enabled":true},"频繁小额":{"enabled":true},"异常拆分":{"enabled":true},"关键字段缺失":{"enabled":true},"合同号格式异常":{"enabled":
+true},"完全重复":{"enabled":true},"节假日记账":{"enabled":true},"月末突击":{"enabled":true},"跨年调整":{"enabled":true}}
+2026-03-04 12:59:28,994 - INFO - 文件大小: 6843705 字节
+2026-03-04 12:59:28,998 - INFO - 文件已保存到: uploads/数据源1.xlsx
+2026-03-04 12:59:28,998 - INFO - 规则配置解析成功: {'借贷不平': {'enabled': True}, '凭证断号': {'enabled': True}, '一借多贷异常': {'enabled': True}, '摘要-科目匹配': {'enabled': True}, '在建工程科目关联': {'enabled': T
+rue}, '税费科目逻辑': {'enabled': True}, '银行存款科目': {'enabled': True}, '大额交易': {'enabled': True}, '整数金额': {'enabled': True}, '频繁小额': {'enabled': True}, '异常拆分': {'enabled': True}, '关键字段缺失': 
+{'enabled': True}, '合同号格式异常': {'enabled': True}, '完全重复': {'enabled': True}, '节假日记账': {'enabled': True}, '月末突击': {'enabled': True}, '跨年调整': {'enabled': True}}
+2026-03-04 12:59:28,998 - INFO - 开始处理审计数据: uploads/数据源1.xlsx
+2026-03-04 12:59:28,998 - INFO - 开始预处理文件: uploads/数据源1.xlsx
+2026-03-04 12:59:39,525 - INFO - 读取到 95147 行数据
+2026-03-04 12:59:39,526 - INFO - 列名: ['年', '月', '日', '核算账簿名称', '凭证号', '分录号', '摘要', '科目编码', '科目名称', '辅助项', '币种', '借方本币', '贷方本币']
+2026-03-04 12:59:41,814 - INFO - 预处理完成，共 95147 行
+2026-03-04 12:59:41,814 - INFO - 开始执行规则引擎，规则配置: {'借贷不平': {'enabled': True}, '凭证断号': {'enabled': True}, '一借多贷异常': {'enabled': True}, '摘要-科目匹配': {'enabled': True}, '在建工程科目关联': {'enable
+d': True}, '税费科目逻辑': {'enabled': True}, '银行存款科目': {'enabled': True}, '大额交易': {'enabled': True}, '整数金额': {'enabled': True}, '频繁小额': {'enabled': True}, '异常拆分': {'enabled': True}, '关键字段
+缺失': {'enabled': True}, '合同号格式异常': {'enabled': True}, '完全重复': {'enabled': True}, '节假日记账': {'enabled': True}, '月末突击': {'enabled': True}, '跨年调整': {'enabled': True}}
+2026-03-04 12:59:41,814 - INFO - 借贷不平规则检测到 0 条异常
+2026-03-04 12:59:41,846 - INFO - 大额交易规则在科目 银行存款 检测到 283 条异常
+2026-03-04 12:59:41,866 - INFO - 大额交易规则在科目 差旅费 检测到 5 条异常
+2026-03-04 12:59:41,890 - INFO - 大额交易规则在科目 未认证的进项税额 检测到 63 条异常
+2026-03-04 12:59:41,907 - INFO - 大额交易规则在科目 进项税额 检测到 6 条异常
+2026-03-04 12:59:41,922 - INFO - 大额交易规则在科目 手续费 检测到 7 条异常
+2026-03-04 12:59:41,938 - INFO - 大额交易规则在科目 自建项目建设 检测到 27 条异常
+2026-03-04 12:59:41,952 - INFO - 大额交易规则在科目 银行承兑汇票 检测到 28 条异常
+2026-03-04 12:59:41,968 - INFO - 大额交易规则在科目 应交个人所得税 检测到 11 条异常
+2026-03-04 12:59:41,983 - INFO - 大额交易规则在科目 工资 检测到 9 条异常
+2026-03-04 12:59:41,997 - INFO - 大额交易规则在科目 养老保险 检测到 22 条异常
+2026-03-04 12:59:42,014 - INFO - 大额交易规则在科目 失业保险 检测到 44 条异常
+2026-03-04 12:59:42,030 - INFO - 大额交易规则在科目 医疗保险 检测到 33 条异常
+2026-03-04 12:59:42,048 - INFO - 大额交易规则在科目 工伤保险 检测到 28 条异常
+2026-03-04 12:59:42,063 - INFO - 大额交易规则在科目 生育保险 检测到 24 条异常
+2026-03-04 12:59:42,079 - INFO - 大额交易规则在科目 应付住房公积金 检测到 12 条异常
+2026-03-04 12:59:42,098 - INFO - 大额交易规则在科目 应付工会经费 检测到 1 条异常
+2026-03-04 12:59:42,120 - INFO - 大额交易规则在科目 应付工资 检测到 12 条异常
+2026-03-04 12:59:42,213 - INFO - 大额交易规则在科目 代扣个人工会经费 检测到 1 条异常
+2026-03-04 12:59:42,228 - INFO - 大额交易规则在科目 住房公积金 检测到 3 条异常
+2026-03-04 12:59:42,244 - INFO - 大额交易规则在科目 工会经费 检测到 3 条异常
+2026-03-04 12:59:42,260 - INFO - 大额交易规则在科目 工程投资支出 检测到 11 条异常
+2026-03-04 12:59:42,271 - INFO - 大额交易规则在科目 应交土地使用税 检测到 2 条异常
+2026-03-04 12:59:42,297 - INFO - 大额交易规则在科目 承兑保证金 检测到 3 条异常
+2026-03-04 12:59:42,314 - INFO - 大额交易规则在科目 长期借款 检测到 1 条异常
+2026-03-04 12:59:42,341 - INFO - 大额交易规则在科目 其他 检测到 15 条异常
+2026-03-04 12:59:42,358 - INFO - 大额交易规则在科目 福利费 检测到 18 条异常
+2026-03-04 12:59:42,374 - INFO - 大额交易规则在科目 进项税额转出 检测到 2 条异常
+2026-03-04 12:59:42,387 - INFO - 大额交易规则在科目 应付福利费 检测到 12 条异常
+2026-03-04 12:59:42,399 - INFO - 大额交易规则在科目 业务招待费 检测到 3 条异常
+2026-03-04 12:59:42,414 - INFO - 大额交易规则在科目 园区配套服务 检测到 10 条异常
+2026-03-04 12:59:42,427 - INFO - 大额交易规则在科目 产权 检测到 2 条异常
+2026-03-04 12:59:42,446 - INFO - 大额交易规则在科目 无形资产摊销 检测到 2 条异常
+2026-03-04 12:59:42,477 - INFO - 大额交易规则在科目 审计费用 检测到 8 条异常
+2026-03-04 12:59:42,488 - INFO - 大额交易规则在科目 勘察及勘测费用 检测到 1 条异常
+2026-03-04 12:59:42,501 - INFO - 大额交易规则在科目 监理费 检测到 1 条异常
+2026-03-04 12:59:42,514 - INFO - 大额交易规则在科目 补贴收入（经营相关） 检测到 2 条异常
+2026-03-04 12:59:42,526 - INFO - 大额交易规则在科目 设计费 检测到 4 条异常
+2026-03-04 12:59:42,537 - INFO - 大额交易规则在科目 招标代理费 检测到 1 条异常
+2026-03-04 12:59:42,551 - INFO - 大额交易规则在科目 往来款 检测到 25 条异常
+2026-03-04 12:59:42,563 - INFO - 大额交易规则在科目 代理招聘费 检测到 1 条异常
+2026-03-04 12:59:42,577 - INFO - 大额交易规则在科目 个人往来 检测到 5 条异常
+2026-03-04 12:59:42,589 - INFO - 大额交易规则在科目 会务费 检测到 2 条异常
+2026-03-04 12:59:42,642 - INFO - 大额交易规则在科目 销项税额 检测到 2 条异常
+2026-03-04 12:59:42,657 - INFO - 大额交易规则在科目 存款利息收入 检测到 3 条异常
+2026-03-04 12:59:42,669 - INFO - 大额交易规则在科目 土地使用税 检测到 2 条异常
+2026-03-04 12:59:42,684 - INFO - 大额交易规则在科目 印花税 检测到 1 条异常
+2026-03-04 12:59:42,707 - INFO - 大额交易规则在科目 水电转售成本 检测到 4 条异常
+2026-03-04 12:59:42,720 - INFO - 大额交易规则在科目 电子设备 检测到 3 条异常
+2026-03-04 12:59:42,735 - INFO - 大额交易规则在科目 办公用品 检测到 8 条异常
+2026-03-04 12:59:42,749 - INFO - 大额交易规则在科目 利息支出 检测到 5 条异常
+2026-03-04 12:59:42,763 - INFO - 大额交易规则在科目 水电转售收入 检测到 15 条异常
+2026-03-04 12:59:42,777 - INFO - 大额交易规则在科目 职教经费 检测到 6 条异常
+2026-03-04 12:59:42,789 - INFO - 大额交易规则在科目 应付职教经费 检测到 6 条异常
+2026-03-04 12:59:42,803 - INFO - 大额交易规则在科目 一次摊销卡片 检测到 3 条异常
+2026-03-04 12:59:42,818 - INFO - 大额交易规则在科目 固定资产折旧 检测到 29 条异常
+2026-03-04 12:59:42,850 - INFO - 大额交易规则在科目 劳动保护费 检测到 2 条异常
+2026-03-04 12:59:42,879 - INFO - 大额交易规则在科目 咨询费 检测到 2 条异常
+2026-03-04 12:59:42,937 - INFO - 大额交易规则在科目 检验检测费 检测到 7 条异常
+2026-03-04 12:59:42,987 - INFO - 大额交易规则在科目 设备采购 检测到 3 条异常
+2026-03-04 12:59:43,000 - INFO - 大额交易规则在科目 残保经费 检测到 1 条异常
+2026-03-04 12:59:43,015 - INFO - 大额交易规则在科目 保证金及押金 检测到 3 条异常
+2026-03-04 12:59:43,028 - INFO - 大额交易规则在科目 工具器具家具 检测到 1 条异常
+2026-03-04 12:59:43,039 - INFO - 大额交易规则在科目 长期待摊费用 检测到 1 条异常
+2026-03-04 12:59:43,064 - INFO - 大额交易规则在科目 罚款收入 检测到 2 条异常
+2026-03-04 12:59:43,078 - INFO - 大额交易规则在科目 机物料辅助材料 检测到 3 条异常
+2026-03-04 12:59:43,090 - INFO - 大额交易规则在科目 管理咨询费 检测到 3 条异常
+2026-03-04 12:59:43,112 - INFO - 大额交易规则在科目 能源动力保障 检测到 412 条异常
+2026-03-04 12:59:43,131 - INFO - 大额交易规则在科目 日常运营 检测到 1 条异常
+2026-03-04 12:59:43,145 - INFO - 大额交易规则在科目 环境保护税 检测到 2 条异常
+2026-03-04 12:59:43,166 - INFO - 大额交易规则在科目 应交环境保护税 检测到 1 条异常
+2026-03-04 12:59:43,189 - INFO - 大额交易规则在科目 应付企业年金 检测到 22 条异常
+2026-03-04 12:59:43,206 - INFO - 大额交易规则在科目 代扣个人企业年金 检测到 4 条异常
+2026-03-04 12:59:43,222 - INFO - 大额交易规则在科目 企业年金 检测到 5 条异常
+2026-03-04 12:59:43,235 - INFO - 大额交易规则在科目 借款利息 检测到 2 条异常
+2026-03-04 12:59:43,298 - INFO - 大额交易规则在科目 电费 检测到 9 条异常
+2026-03-04 12:59:43,327 - INFO - 大额交易规则在科目 房屋建筑物 检测到 1 条异常
+2026-03-04 12:59:43,353 - INFO - 大额交易规则在科目 能源 检测到 1 条异常
+2026-03-04 12:59:43,378 - INFO - 大额交易规则在科目 运输设备 检测到 3 条异常
+2026-03-04 12:59:43,392 - INFO - 大额交易规则在科目 历史费用 检测到 1 条异常
+2026-03-04 12:59:43,405 - INFO - 大额交易规则在科目 直接材料 检测到 2 条异常
+2026-03-04 12:59:43,415 - INFO - 大额交易规则在科目 制造费用 检测到 2 条异常
+2026-03-04 12:59:43,428 - INFO - 大额交易规则在科目 产成品 检测到 2 条异常
+2026-03-04 12:59:43,439 - INFO - 大额交易规则在科目 其他库存 检测到 2 条异常
+2026-03-04 12:59:43,451 - INFO - 大额交易规则在科目 能源动力保障成本 检测到 26 条异常
+2026-03-04 12:59:43,465 - INFO - 大额交易规则在科目 能源动力保障收入 检测到 48 条异常
+2026-03-04 12:59:43,493 - INFO - 大额交易规则在科目 房产税 检测到 2 条异常
+2026-03-04 12:59:43,507 - INFO - 大额交易规则在科目 应交房产税 检测到 2 条异常
+2026-03-04 12:59:43,538 - INFO - 大额交易规则在科目 物业费 检测到 2 条异常
+2026-03-04 12:59:43,553 - INFO - 大额交易规则在科目 维修费 检测到 3 条异常
+2026-03-04 12:59:43,583 - INFO - 大额交易规则在科目 环保费用 检测到 5 条异常
+2026-03-04 12:59:43,596 - INFO - 大额交易规则在科目 待划分款项 检测到 1 条异常
+2026-03-04 12:59:43,610 - INFO - 大额交易规则在科目 安全专项储备 检测到 4 条异常
+2026-03-04 12:59:43,652 - INFO - 大额交易规则在科目 其他成本 检测到 4 条异常
+2026-03-04 12:59:43,738 - INFO - 大额交易规则在科目 车船税 检测到 1 条异常
+2026-03-04 12:59:43,751 - INFO - 大额交易规则在科目 应交车船税 检测到 2 条异常
+2026-03-04 12:59:43,765 - INFO - 大额交易规则在科目 保函保证金 检测到 1 条异常
+2026-03-04 12:59:43,794 - INFO - 大额交易规则在科目 快递费 检测到 3 条异常
+2026-03-04 12:59:43,822 - INFO - 大额交易规则在科目 直接融资 检测到 2 条异常
+2026-03-04 12:59:43,910 - INFO - 大额交易规则在科目 生产设备 检测到 1 条异常
+2026-03-04 12:59:43,946 - INFO - 大额交易规则在科目 承兑保证金利息收入 检测到 1 条异常
+2026-03-04 12:59:43,982 - INFO - 大额交易规则在科目 水费 检测到 2 条异常
+2026-03-04 12:59:44,097 - INFO - 大额交易规则在科目 费用支出 检测到 2 条异常
+2026-03-04 12:59:44,110 - INFO - 大额交易规则在科目 材料采购 检测到 3 条异常
+2026-03-04 12:59:44,121 - INFO - 大额交易规则在科目 拆借款 检测到 1 条异常
+2026-03-04 12:59:44,133 - INFO - 大额交易规则在科目 物料消耗 检测到 6 条异常
+2026-03-04 12:59:44,146 - INFO - 大额交易规则在科目 备品备件 检测到 12 条异常
+2026-03-04 12:59:44,183 - INFO - 大额交易规则在科目 在途物资 检测到 2 条异常
+2026-03-04 12:59:44,343 - INFO - 整数金额规则检测到 11904 条异常
+2026-03-04 12:59:44,420 - INFO - 节假日记账规则检测到 12990 条异常
+2026-03-04 12:59:44,490 - INFO - 规则引擎执行完成
+2026-03-04 12:59:44,613 - INFO - 风险统计 - 高: 0, 中: 1476, 低: 23717
+2026-03-04 12:59:45,342 - INFO - 处理完成，返回结果
+INFO:     127.0.0.1:54581 - "POST /api/upload HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\uvicorn\protocols\http\h11_impl.py", line 408, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\uvicorn\middleware\proxy_headers.py", line 84, in __call__
+    return await self.app(scope, receive, send)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\fastapi\applications.py", line 1106, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\applications.py", line 122, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\middleware\errors.py", line 184, in __call__
+    raise exc
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\middleware\errors.py", line 162, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\middleware\cors.py", line 91, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\middleware\cors.py", line 146, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\middleware\exceptions.py", line 79, in __call__
+    raise exc
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\middleware\exceptions.py", line 68, in __call__
+    await self.app(scope, receive, sender)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 20, in __call__
+    raise e
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 17, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\routing.py", line 718, in __call__
+    await route.handle(scope, receive, send)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\routing.py", line 66, in app
+    response = await func(request)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\fastapi\routing.py", line 303, in app
+    response = actual_response_class(content, **response_args)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\responses.py", line 196, in __init__
+    super().__init__(content, status_code, headers, media_type, background)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\responses.py", line 55, in __init__
+    self.body = self.render(content)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\responses.py", line 199, in render
+    return json.dumps(
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\json\__init__.py", line 238, in dumps
+    **kw).encode(obj)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\json\encoder.py", line 199, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python310\lib\json\encoder.py", line 257, in iterencode
+    return _iterencode(o, 0)
+ValueError: Out of range float values are not JSON compliant
+INFO:     127.0.0.1:49823 - "OPTIONS /api/llm/analyze HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49823 - "POST /api/llm/analyze HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64333 - "GET / HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64333 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59279 - "GET / HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:58880 - "GET / HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62632 - "POST /api/llm/analyze HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57407 - "OPTIONS /api/llm/analyze HTTP/1.1" 200 OK
