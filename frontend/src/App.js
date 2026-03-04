@@ -1,36 +1,43 @@
 import React, { useState, useEffect } from 'react';
-import { Layout, Menu, Upload, Button, Card, Table, Progress, Drawer, message, Tabs, Input, Tag, Space, Descriptions, Badge, Alert, Empty, Row, Col, Statistic, Spin } from 'antd';
-import { UploadOutlined, DashboardOutlined, SettingOutlined, FileTextOutlined, MessageOutlined, ReloadOutlined } from '@ant-design/icons';
+import { Layout, Menu, Upload, Button, Card, Table, Progress, Drawer, message, Tabs, Input, Tag, Space, Descriptions, Badge, Alert, Empty, Row, Col, Statistic, Spin, Switch, Collapse, Divider } from 'antd';
+import { UploadOutlined, DashboardOutlined, SettingOutlined, FileTextOutlined, MessageOutlined, ReloadOutlined, SaveOutlined } from '@ant-design/icons';
 import axios from 'axios';
 
 const { Header, Sider, Content } = Layout;
 const { Dragger } = Upload;
-const { TabPane } = Tabs;
 const { TextArea } = Input;
+const { Panel } = Collapse;
 
-const API_BASE_URL = 'http://localhost:9000';
+const API_BASE_URL = 'http://localhost:9001';
 
 function App() {
   const [activeKey, setActiveKey] = useState('dashboard');
   const [loading, setLoading] = useState(false);
-  const [taskId, setTaskId] = useState(null);
-  const [taskStatus, setTaskStatus] = useState('');
   const [results, setResults] = useState(null);
   const [llmHealth, setLlmHealth] = useState(null);
   const [chatMessages, setChatMessages] = useState([]);
   const [chatInput, setChatInput] = useState('');
   const [selectedRecord, setSelectedRecord] = useState(null);
   const [drawerVisible, setDrawerVisible] = useState(false);
-  const [rules, setRules] = useState({
-    '借贷不平': { enabled: true },
-    '大额交易': { enabled: true },
-    '整数金额': { enabled: true },
-    '节假日记账': { enabled: true }
-  });
+  const [rules, setRules] = useState({});
+  const [rulesLoading, setRulesLoading] = useState(false);
 
   useEffect(() => {
+    fetchRules();
     checkLLMHealth();
   }, []);
+
+  const fetchRules = async () => {
+    setRulesLoading(true);
+    try {
+      const response = await axios.get(`${API_BASE_URL}/api/rules`);
+      setRules(response.data);
+    } catch (error) {
+      console.error('Failed to fetch rules:', error);
+    } finally {
+      setRulesLoading(false);
+    }
+  };
 
   const checkLLMHealth = async () => {
     try {
@@ -38,6 +45,28 @@ function App() {
       setLlmHealth(response.data);
     } catch (error) {
       setLlmHealth({ status: 'unavailable' });
+    }
+  };
+
+  const handleRuleChange = (category, ruleName, enabled) => {
+    setRules(prev => ({
+      ...prev,
+      [category]: {
+        ...prev[category],
+        [ruleName]: {
+          ...prev[category][ruleName],
+          enabled
+        }
+      }
+    }));
+  };
+
+  const saveRules = async () => {
+    try {
+      await axios.post(`${API_BASE_URL}/api/rules`, rules);
+      message.success('规则配置已保存');
+    } catch (error) {
+      message.error('保存失败');
     }
   };
 
@@ -95,7 +124,7 @@ function App() {
 
   const getRiskTag = (riskLevel) => {
     const colors = { '高': 'red', '中': 'orange', '低': 'green' };
-    return <Tag color={colors[riskLevel] || 'default'}>{riskLevel}</Tag>;
+    return <Tag color={colors[riskLevel] || 'default'}>{riskLevel}风险</Tag>;
   };
 
   const viewDetail = (record) => {
@@ -139,6 +168,23 @@ function App() {
               </Col>
             </Row>
 
+            {results?.rule_stats && Object.keys(results.rule_stats).length > 0 && (
+              <Card title="规则触发统计" style={{ marginTop: 24 }}>
+                <Row gutter={[16, 16]}>
+                  {Object.entries(results.rule_stats).map(([name, stat]) => (
+                    <Col span={6} key={name}>
+                      <Card size="small">
+                        <Statistic 
+                          title={<span>{getRiskTag(stat.risk)} {name}</span>} 
+                          value={stat.count} 
+                        />
+                      </Card>
+                    </Col>
+                  ))}
+                </Row>
+              </Card>
+            )}
+
             {!results && (
               <Card style={{ marginTop: 24, textAlign: 'center' }}>
                 <Empty description="暂无审计数据，请上传数据文件开始审计" />
@@ -174,9 +220,9 @@ function App() {
                 message="数据格式要求"
                 description={
                   <div>
-                    <p>必需字段：年、月、日、凭证号、摘要、科目编码、科目名称、借方本币、贷方本币</p>
-                    <p>可选字段：核算账簿名称、分录号、辅助项、币种</p>
-                    <p>辅助项格式：【键：值】，多个用空格分隔</p>
+                    <p><strong>必需字段：</strong>年、月、日、凭证号、摘要、科目编码、科目名称、借方本币、贷方本币</p>
+                    <p><strong>可选字段：</strong>核算账簿名称、分录号、辅助项、币种</p>
+                    <p><strong>辅助项格式：</strong>【键：值】，多个用空格分隔，如：【部门：行政部】【人员：张三】</p>
                   </div>
                 }
                 type="info"
@@ -189,30 +235,76 @@ function App() {
       case 'rules':
         return (
           <div style={{ padding: 24 }}>
-            <Card title="规则配置">
-              <Tabs defaultActiveKey="1">
-                <TabPane tab="基础规则" key="1">
-                  {['借贷不平', '大额交易', '整数金额', '节假日记账'].map(rule => (
-                    <div key={rule} style={{ marginBottom: 16 }}>
-                      <label>
-                        <input
-                          type="checkbox"
-                          checked={rules[rule]?.enabled}
-                          onChange={(e) => setRules(prev => ({
-                            ...prev,
-                            [rule]: { enabled: e.target.checked }
-                          }))}
-                          style={{ marginRight: 8 }}
-                        />
-                        {rule}
-                      </label>
-                    </div>
+            <Card 
+              title="审计规则配置" 
+              extra={
+                <Space>
+                  <Button icon={<ReloadOutlined />} onClick={fetchRules}>重置</Button>
+                  <Button type="primary" icon={<SaveOutlined />} onClick={saveRules}>保存配置</Button>
+                </Space>
+              }
+            >
+              <Spin spinning={rulesLoading}>
+                <Collapse defaultActiveKey={Object.keys(rules)} bordered={false}>
+                  {Object.entries(rules).map(([category, categoryRules]) => (
+                    <Panel 
+                      header={
+                        <span>
+                          <strong>{category}</strong>
+                          <Tag style={{ marginLeft: 8 }} color="blue">
+                            {Object.values(categoryRules).filter(r => r.enabled).length}/{Object.keys(categoryRules).length} 已启用
+                          </Tag>
+                        </span>
+                      } 
+                      key={category}
+                    >
+                      <Row gutter={[16, 16]}>
+                        {Object.entries(categoryRules).map(([ruleName, ruleConfig]) => (
+                          <Col span={12} key={ruleName}>
+                            <Card 
+                              size="small" 
+                              hoverable
+                              extra={
+                                <Switch 
+                                  checked={ruleConfig.enabled} 
+                                  onChange={(checked) => handleRuleChange(category, ruleName, checked)}
+                                  checkedChildren="启用" 
+                                  unCheckedChildren="禁用"
+                                />
+                              }
+                            >
+                              <Card.Meta 
+                                title={
+                                  <Space>
+                                    {getRiskTag(ruleConfig.risk)}
+                                    <span>{ruleName}</span>
+                                  </Space>
+                                }
+                                description={ruleConfig.description}
+                              />
+                              {ruleConfig.threshold && (
+                                <div style={{ marginTop: 8, fontSize: 12, color: '#666' }}>
+                                  阈值: {ruleConfig.threshold}σ
+                                </div>
+                              )}
+                              {ruleConfig.min_amount && (
+                                <div style={{ marginTop: 8, fontSize: 12, color: '#666' }}>
+                                  最小金额: {ruleConfig.min_amount.toLocaleString()}
+                                </div>
+                              )}
+                              {ruleConfig.count_threshold && (
+                                <div style={{ marginTop: 8, fontSize: 12, color: '#666' }}>
+                                  次数阈值: {ruleConfig.count_threshold}
+                                </div>
+                              )}
+                            </Card>
+                          </Col>
+                        ))}
+                      </Row>
+                    </Panel>
                   ))}
-                </TabPane>
-              </Tabs>
-              <Button type="primary" onClick={() => message.success('规则配置已保存')}>
-                保存配置
-              </Button>
+                </Collapse>
+              </Spin>
             </Card>
           </div>
         );
@@ -241,7 +333,7 @@ function App() {
                       { title: '凭证号', dataIndex: '凭证号', key: '凭证号', width: 100 },
                       { title: '日期', dataIndex: 'date', key: 'date', width: 120 },
                       { title: '摘要', dataIndex: '摘要', key: '摘要', ellipsis: true },
-                      { title: '科目名称', dataIndex: '科目名称', key: '科目名称', ellipsis: true },
+                      { title: '科目名称', dataIndex: '科目名称', key: '科目名称', ellipsis: true, width: 200 },
                       { title: '金额', dataIndex: 'amount', key: 'amount', width: 120, render: v => v?.toLocaleString?.() || v },
                       { 
                         title: '风险等级', 
@@ -260,14 +352,15 @@ function App() {
                         key: 'action',
                         width: 80,
                         render: (_, record) => (
-                          <Button size="small" onClick={() => viewDetail(record)}>详情</Button>
+                          <Button size="small" type="link" onClick={() => viewDetail(record)}>详情</Button>
                         ) 
                       }
                     ]}
                     dataSource={results.anomaly_records || []}
-                    pagination={{ pageSize: 20 }}
+                    pagination={{ pageSize: 20, showSizeChanger: true, showTotal: (total) => `共 ${total} 条` }}
                     scroll={{ x: 1000 }}
                     rowKey={(r, i) => i}
+                    size="small"
                   />
                 </>
               ) : (
@@ -313,7 +406,7 @@ function App() {
                 <TextArea
                   value={chatInput}
                   onChange={(e) => setChatInput(e.target.value)}
-                  placeholder="输入审计相关问题..."
+                  placeholder="输入审计相关问题，如：这笔大额交易是否合理？"
                   autoSize={{ minRows: 1, maxRows: 3 }}
                   onPressEnter={(e) => {
                     if (!e.shiftKey) {
@@ -370,12 +463,17 @@ function App() {
             <Descriptions.Item label="摘要">{selectedRecord['摘要']}</Descriptions.Item>
             <Descriptions.Item label="科目名称">{selectedRecord['科目名称']}</Descriptions.Item>
             <Descriptions.Item label="金额">{selectedRecord['amount']?.toLocaleString?.()}</Descriptions.Item>
+            <Descriptions.Item label="借方金额">{selectedRecord['借方本币']?.toLocaleString?.()}</Descriptions.Item>
+            <Descriptions.Item label="贷方金额">{selectedRecord['贷方本币']?.toLocaleString?.()}</Descriptions.Item>
             <Descriptions.Item label="风险标记">
-              <Space direction="vertical">
+              <Space direction="vertical" style={{ width: '100%' }}>
                 {(selectedRecord['风险标记'] || []).map((m, i) => (
-                  <div key={i}>
-                    {getRiskTag(m['风险等级'])} {m['规则名称']}
-                    {m['描述'] && <span style={{ marginLeft: 8, color: '#666' }}>- {m['描述']}</span>}
+                  <div key={i} style={{ padding: 8, backgroundColor: '#f5f5f5', borderRadius: 4 }}>
+                    <div>
+                      {getRiskTag(m['风险等级'])} 
+                      <strong style={{ marginLeft: 8 }}>{m['规则名称']}</strong>
+                    </div>
+                    {m['描述'] && <div style={{ marginTop: 4, color: '#666', fontSize: 12 }}>{m['描述']}</div>}
                   </div>
                 ))}
               </Space>
