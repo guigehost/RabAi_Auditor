@@ -1,0 +1,98 @@
+{
+  "凭证级": {
+    "借贷不平": {
+      "enabled": true,
+      "description": "检测借贷金额不平衡的凭证",
+      "risk": "高"
+    },
+    "凭证断号": {
+      "enabled": true,
+      "description": "检测凭证号不连续的情况",
+      "risk": "中"
+    },
+    "一借多贷异常": {
+      "enabled": true,
+      "description": "检测一借多贷且金额相等的异常",
+      "risk": "中"
+    },
+    "摘要为空": {
+      "enabled": true,
+      "description": "检测摘要为空的记录",
+      "risk": "低"
+    }
+  },
+  "科目合规": {
+    "摘要科目匹配": {
+      "enabled": true,
+      "description": "检测摘要与科目是否匹配",
+      "risk": "中"
+    },
+    "在建工程关联": {
+      "enabled": true,
+      "description": "检测在建工程是否缺少合同号/项目",
+      "risk": "中"
+    },
+    "税费科目逻辑": {
+      "enabled": true,
+      "description": "检测税费科目是否缺少税率信息",
+      "risk": "高"
+    },
+    "往来科目清理": {
+      "enabled": true,
+      "description": "检测长期挂账的往来款项",
+      "risk": "中"
+    }
+  },
+  "金额合理": {
+    "大额交易": {
+      "enabled": true,
+      "description": "检测超过均值+3σ的大额交易",
+      "risk": "中",
+      "threshold": 3
+    },
+    "整数金额": {
+      "enabled": true,
+      "description": "检测金额为整数且>=1万的记录",
+      "risk": "低",
+      "min_amount": 10000
+    },
+    "频繁小额": {
+      "enabled": true,
+      "description": "检测同一科目频繁小额交易",
+      "risk": "低",
+      "count_threshold": 5
+    },
+    "异常拆分": {
+      "enabled": false,
+      "description": "检测同一凭证多笔相同金额",
+      "risk": "高"
+    },
+    "金额尾数异常": {
+      "enabled": true,
+      "description": "检测金额尾数为特定数字",
+      "risk": "低"
+    }
+  },
+  "时间异常": {
+    "节假日记账": {
+      "enabled": true,
+      "description": "检测周末/节假日记账",
+      "risk": "低"
+    },
+    "月末突击": {
+      "enabled": true,
+      "description": "检测月末大额交易",
+      "risk": "中"
+    },
+    "跨年调整": {
+      "enabled": true,
+      "description": "检测12月31日大量调整分录",
+      "risk": "中"
+    },
+    "间隔异常": {
+      "enabled": true,
+      "description": "检测记账日期间隔异常",
+      "risk": "低"
+    }
+  }
+}

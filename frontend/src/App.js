@@ -8,7 +8,7 @@ const { Dragger } = Upload;
 const { TextArea } = Input;
 const { Panel } = Collapse;
 
-const API_BASE_URL = 'http://localhost:9001';
+const API_BASE_URL = 'http://localhost:8002';
 
 function App() {
   const [activeKey, setActiveKey] = useState('dashboard');
