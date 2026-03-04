@@ -7,7 +7,7 @@ git_path = r"C:\Program Files\Git\bin\git.exe"
 
 commands = [
     [git_path, "add", "."],
-    [git_path, "commit", "-m", "Fix: Update API port, improve frontend UI, fix JSON serialization"],
+    [git_path, "commit", "-m", "Feature: Add comprehensive audit rules engine with 17 rules across 4 categories"],
     [git_path, "push", "origin", "main", "--force"]
 ]
 
