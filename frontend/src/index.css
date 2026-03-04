@@ -1,0 +1,213 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.ant-layout {
+  min-height: 100vh;
+}
+
+.ant-layout-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+}
+
+.ant-layout-sider {
+  background: #fff;
+  border-right: 1px solid #f0f0f0;
+}
+
+.ant-menu {
+  border-right: none;
+}
+
+.ant-card {
+  border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+.ant-card-head {
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.ant-table {
+  background: #fff;
+}
+
+.ant-table-thead > tr > th {
+  background: #fafafa;
+  font-weight: 600;
+}
+
+.ant-table-tbody > tr:hover > td {
+  background: #e6f7ff;
+}
+
+.ant-progress {
+  margin: 16px 0;
+}
+
+.ant-upload-drag {
+  border-radius: 8px;
+  border: 2px dashed #d9d9d9;
+  transition: all 0.3s;
+}
+
+.ant-upload-drag:hover {
+  border-color: #1890ff;
+}
+
+.ant-upload-drag-icon {
+  font-size: 48px;
+  color: #1890ff;
+}
+
+.ant-tag {
+  border-radius: 4px;
+}
+
+.ant-badge {
+  margin-right: 8px;
+}
+
+.ant-descriptions-bordered .ant-descriptions-item-label {
+  background: #fafafa;
+  font-weight: 500;
+}
+
+.ant-drawer-body {
+  padding: 24px;
+}
+
+.ant-empty {
+  padding: 32px 0;
+}
+
+.ant-statistic-title {
+  font-size: 14px;
+  color: #666;
+}
+
+.ant-statistic-content {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.ant-alert {
+  border-radius: 8px;
+}
+
+.ant-tabs-tab {
+  font-size: 14px;
+}
+
+.ant-tabs-tab-active {
+  font-weight: 600;
+}
+
+.ant-form-item-label > label {
+  font-weight: 500;
+}
+
+.ant-checkbox-wrapper {
+  font-size: 14px;
+}
+
+.ant-btn {
+  border-radius: 6px;
+}
+
+.ant-input, .ant-input-number, .ant-select-selector {
+  border-radius: 6px;
+}
+
+.chat-message {
+  margin-bottom: 16px;
+  padding: 12px;
+  border-radius: 8px;
+}
+
+.chat-message.user {
+  background: #e6f7ff;
+  margin-left: 20%;
+}
+
+.chat-message.assistant {
+  background: #f6ffed;
+  margin-right: 20%;
+}
+
+.chat-input {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.chat-input .ant-input {
+  flex: 1;
+}
+
+.risk-tag-high {
+  background: #fff2f0;
+  border-color: #ffccc7;
+  color: #cf1322;
+}
+
+.risk-tag-medium {
+  background: #fff7e6;
+  border-color: #ffd591;
+  color: #d46b08;
+}
+
+.risk-tag-low {
+  background: #f6ffed;
+  border-color: #b7eb8f;
+  color: #389e0d;
+}
+
+.stat-card {
+  text-align: center;
+  padding: 20px;
+}
+
+.stat-card .ant-statistic-title {
+  margin-bottom: 8px;
+}
+
+.progress-card {
+  margin-top: 20px;
+}
+
+.progress-card .ant-progress-text {
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .ant-layout-sider {
+    position: absolute;
+    left: -200px;
+    z-index: 100;
+    transition: left 0.3s;
+  }
+  
+  .ant-layout-sider.collapsed {
+    left: 0;
+  }
+  
+  .chat-message.user {
+    margin-left: 0;
+  }
+  
+  .chat-message.assistant {
+    margin-right: 0;
+  }
+}
